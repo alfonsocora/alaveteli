@@ -85,7 +85,7 @@ Ubuntu 12.04 LTS that contains everything you need to work on Alaveteli.
             $ vagrant ssh
 
             # You are now in a terminal on the virtual machine
-            $ cd /home/vagrant/alaveteli
+            $ cd alaveteli
 
 4. To start Alaveteli, run the rails server:
 
@@ -101,7 +101,7 @@ You don't need to stop Alaveteli right away, but when you do here are
 three ways:
 
 * If you've still got a login in the Vagrant shell in which you ran the
-  `rails server` command, simply press **Ctl-C** to interrupt it.
+  `rails server` command, simply press **Ctrl-C** to interrupt it.
 
 * It's also possible to stop the server from a different terminal shell in the
   Vagrant VM. Log in, find the process ID for the Alaveteli server (in the

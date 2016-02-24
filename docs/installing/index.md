@@ -25,7 +25,7 @@ worry too much about the efficiency and performance of the site (because it's
 not really getting lots of traffic).
 
 A **production** site is different: you want your production site to run as
-efficiently as possible, so things like caching are swiched on, and debug
+efficiently as possible, so things like caching are switched on, and debug
 messages switched off. It's also important to be able to deploy changes to a
 production site quickly and efficiently, so we recommend you use a
 [deployment mechanism]({{ page.baseurl }}/docs/installing/deploy/) too.
@@ -41,7 +41,8 @@ means on your local machine.
 So the best way to get started is to 
 [install locally using Vagrant]({{ page.baseurl }}/docs/installing/vagrant/)
 — that's easiest because it takes care of local dependencies for you.
-In order to customise your installation, you'll need to make your own theme
+In order to customise your installation, you'll need to make your own
+<a href="{{ page.baseurl }}/docs/glossary/#theme"  class="glossary__link">theme</a>
 and, eventually, that theme will go into its own
 <a href="{{ page.baseurl}}/docs/glossary/#git" class="glossary__link">git
 repo</a>. Only when you've got this far can you move onto a
@@ -88,7 +89,7 @@ If you're setting up a development server on MacOS X, we've also got
 
 Alaveteli needs to be able to send and receive email. If you're installing
 manually, you need to
-[setup your MTA (Mail Transfer Agent) appropriately]({{page.baseurl }}/docs/installing/email/).
+[set up your MTA (Mail Transfer Agent) appropriately]({{page.baseurl }}/docs/installing/email/).
 The other install methods will do this for you.
 
 * [Installing the MTA]({{ page.baseurl }}/docs/installing/email/)

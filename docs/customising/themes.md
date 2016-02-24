@@ -28,10 +28,8 @@ You don't need to be a programmer in order to make simple changes, but you will
 need to be confident enough to copy and change some files. If you're not sure
 about this, [ask for help](/community/)!
 
-<div class="attention-box helpful-hint">
-  <a href="{{ page.baseurl }}/docs/customising/make_a_new_theme">Follow
-  these steps to create a new theme</a>.
-</div>
+The easiest way to create a new theme is to
+**[follow these steps]({{ page.baseurl }}/docs/customising/make_a_new_theme)**.
 
 <div class="attention-box warning">
   When you customise Alaveteli, you should <strong>always use this
@@ -70,12 +68,10 @@ getting the git repo from the URL specified in the config setting
 [`THEME_URLS`]({{ page.baseurl }}/docs/customising/config/#theme_urls). This is
 why your theme must be in its own git repo.
 
-<div class="attention-box helpful-hint">
-  <a href="{{ page.baseurl }}/docs/customising/make_a_new_theme">Follow
-  these steps to create a new theme</a>.
-</div>
+The easiest way to create a new theme is to
+**[follow these steps]({{ page.baseurl }}/docs/customising/make_a_new_theme)**.
 
-<div class="attention-box helpful-hint">
+<div class="attention-box info">
   Here's an example of a complex theme in action: see the theme repo at
   <a href="https://github.com/mysociety/whatdotheyknow-theme">https://github.com/mysociety/whatdotheyknow-theme</a>.
   This is the theme for UK's Alaveteli instance

@@ -88,7 +88,7 @@ install it as the theme your installation will use.
 
 Do this by issuing this command within your Vagrant virtual machine:
 
-    rake themes:install
+    bundle exec rake themes:install
 
 Alaveteli will connect to GitHub, pull down your theme repo and put it in the
 right place within your Alaveteli installation.
@@ -108,10 +108,10 @@ There's more than one way to do this, but the simplest way (which means you
 can most easily see the consequences of any changes you make) is to edit your
 theme's files inside Alaveteli installation, within `lib/themes/`. Within that
 directory, find your theme and edit
-`/assets/stylesheets/responsive/custom.scss`. Find the Sass variable `$primary`
-and change the colour value. For example:
+`/assets/stylesheets/responsive/custom.scss`. Find the Sass variable
+`$color_primary` and change the colour value. For example:
 
-    $primary = #ff0000
+    $color_primary = #ff0000;
 
 This sets the primary colour to red (`#ff0000` in that example can be any CSS
 colour value). Of course, this is just to show that you _can_ change it: really, you can change anything in this theme — that's the whole point.
@@ -136,10 +136,19 @@ the Sass, containing the new colour you've picked.
     example, remaining explicitly on the <code>master</code> branch). The
     disadvantage is you have to remember to push your changes up to the origin
     (which will probably be GitHub) whenever you have any changes to deploy.
- </p>
+  </p>
+  <p>
+    See the <a href="#branches-within-your-theme-repo">note about branches</a>
+    below for more information.
+  </p>
 </div>
 
 ## 6. See the new colour!
+
+Before trying to look at the site, make sure the development server is running.
+Within the Vagrant VM, do this to start it:
+
+    bundle exec rails server
 
 Now if you look at the home page on your development server, you'll
 see the new colour.
@@ -154,8 +163,9 @@ see the new colour.
 ## 7. Change the logo
 
 To change the default, placeholder logo, replace the file
-`/assets/images/logo.png` with one of your own. We recommend you keep to the
-same aspect ratio to start with, because that will fit in with the rest of the
+`/assets/images/logo.png` with one of your own (don't change the filename —
+you're really just replacing its contents). We recommend you keep to the same
+aspect ratio to start with, because that will fit in with the rest of the
 layout. Of course, you can change all of that later: this is just to get you
 comfortable with the most important changes.
 
@@ -176,40 +186,62 @@ your theme will be taken from the core asset directories instead.
 
 You need to commit the changes (that is, tell git what you changed and why),
 and then push those changes back up to your repo on GitHub. This is because,
-eventually, your production site will be pulling the theme from there (because
-you'll put its URL in your THEME_URL config setting for your production server,
-just like you have done for this development one).
+eventually, your production site will be pulling the theme from there (you'll
+put the URL of your theme in your `THEME_URLS` config setting for your
+production server, just like you have done for this development one).
 
-<div class="attention-box helpful-hint">
-  Note that <em>inside</em> your Vagrant virtual machine, you probably
-  won't be able to access GitHub with your user settings, and so on.
-  So you may need to do this from "outside" the VM. This can trip you
-  up because the command shell looks very similar when you are inside
-  a <code>vagrant&nbsp;ssh</code> session, and when you are not.
+There are different ways to commit your changes, but here's one method:
+
+    git checkout master
+    git commit -a -m "changed colour and logo to match brand style" 
+
+The `checkout` command is needed because, unless you've told it explicitly to
+do otherwise, the rake task won't checkout a branch (instead, it leaves you
+with a "detached HEAD") -- see the
+[note about branches](#branches-within-your-theme-repo) below. The `-a` option
+of the `commit` command commits all the files you've changed, and the `-m`
+option adds a message describing what you did and why.
+
+<div class="attention-box warning">
+  Note that <em>inside</em> your Vagrant virtual machine, you probably won't be
+  able to access GitHub with your user settings, and so on. So you may need to
+  issue your git commands from "outside" the VM. This can trip you up because
+  the command shell looks very similar when you are inside a
+  <code>vagrant&nbsp;ssh</code> session, and when you are not.
 </div>
 
 Well done — when you've customised your theme and pushed that work back up to
 GitHub, you're well on your way to having your own Alaveteli site.
 
-Note another reason for pushing to GitHub is that we can look at it (or, more
+One good reason for pushing to GitHub is that we can look at it (or, more
 usefully perhaps, run it on a development server of our own by putting that URL
-into our THEME_URL setting) if you need any help.
+into our `THEME_URLS` setting) if you need any help.
 
-<div class="attention-box warning">
-  The <code>rake theme:install</code> task will checkout your theme in with a
-  <em>detached&nbsp;HEAD</em>. This is correct, but it might catch you out if
-  you then try to do any more development work in there. You need to checkout a
-  specific branch if you want to do more customising work.
-  <!-- FIXME this isn't helpful enough methinks -->
-</div>
+### Branches *within* your theme repo
 
-There's a setting in your config called
-<code><a href="{{ page.baseurl }}/docs/customising/config/#theme_branch">THEME_BRANCH</a></code>.
-If you're not familiar with git you don't need to worry about it (because your
-changes will probably be going onto `master`, the default, anyway). But if you
-are using branches in your development, use this config setting to tell your
-Alaveteli which branch of your theme repo you want
-<code>rake&nbsp;theme:install</code> to deploy.
+The `rake themes:install` task deploys your theme by pulling it down from the
+nominated URL. As mentioned above, by default this will check out your theme at
+the most recent commit on the `master` branch. It does this with a detached
+HEAD, which is usually what you want in production (because you won't be making
+changes there), but might catch you out in your development environment. All
+this means is that after running the rake task, the state of the git repo
+that's now inside `lib/themes` isn't explicitly on any branch: you can remedy
+this manually with <code>git&nbsp;checkout&nbsp;<em>branch-name</em></code>.
+
+However, there's a setting in your config called
+[`THEME_BRANCH`]({{page.baseurl }}/docs/customising/config/#theme_branch)
+that overrides this behaviour. If you're not familiar with git you don't need
+to worry about it (because your changes will probably be going onto `master`,
+the default, anyway). But if you are using branches in your development, use
+this config setting to tell your Alaveteli which branch of your theme repo you
+want <code>rake&nbsp;themes:install</code> to deploy.
+
+Remember that this is about the branch your *theme* repo is on, not the main
+git repo for your Alaveteli install. The `themes:install` rake task is cloning
+your theme repo into a directory *inside* the Alaveteli repo. That is, it's one
+repo inside another. If you don't like working like this, you can always edit
+your theme files in a repo elsewhere, and push them up to GitHub before you do
+`themes:install`.
 
 ---
 
