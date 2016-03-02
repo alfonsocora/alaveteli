@@ -132,6 +132,16 @@ To start your alaveteli instance:
 * bundle exec rails server
 EOF
 
+  if ALAVETELI_OS == 'jessie64'
+    config.vm.provision :shell, :inline => "mkdir /etc/update-motd.d/"
+    config.vm.provision :shell, :inline => "cd /etc/update-motd.d/ && touch 00-header && touch 10-sysinfo && touch 90-footer
+"
+    config.vm.provision :shell, :inline => "echo '#!/bin/sh' >> /etc/update-motd.d/90-footer"
+    config.vm.provision :shell, :inline => "echo '[ -f /etc/motd.tail ] && cat /etc/motd.tail || true' >> /etc/update-motd.d/90-footer"
+    config.vm.provision :shell, :inline => "chmod +x /etc/update-motd.d/*"
+    config.vm.provision :shell, :inline => "rm /etc/motd"
+    config.vm.provision :shell, :inline => "ln -s /var/run/motd /etc/motd"
+  end
   config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd.tail"
 
   # Display next steps info at the end of a successful install
