@@ -57,6 +57,41 @@
   `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
   shared on Facebook.
 
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_censor_rule/_show.html.erb
+    app/views/admin_censor_rule/edit.html.erb
+    app/views/admin_censor_rule/new.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/stats.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/general/_responsive_footer.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/layouts/default.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/list.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_followup.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/describe_state_message.html.erb
+    app/views/request/followup_bad.html.erb
+    app/views/request/followup_preview.html.erb
+    app/views/request/preview.html.erb
+    app/views/request/show.html.erb
+    app/views/request/show_response.html.erb
+    app/views/request_mailer/overdue_alert.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/user/_signin.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/_user_listing_single.html.erb
+    app/views/user/show.html.erb
+
 # Version 0.23.2.0
 
 ## Highlighted Features
